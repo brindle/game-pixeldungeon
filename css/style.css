@@ -1,0 +1,36 @@
+* { border:0; margin:0;}
+
+body { background:black; font:1em; color: white;}
+
+div, nav {border: 1px solid white;}
+
+.container {
+width:800px;
+height:800px;
+}
+
+.hidden { display:none;}
+.debug-menu {position:absolute;top:0;left:0;right:0;}
+
+#game {}
+
+#effect .effect-default {}
+
+.player1 { width:100px; height:200px; background:red;}
+.player1-stats {}
+.player1-stats #player1-name {}
+.player1-stats #player1-lvl {}
+.player1-stats #player1-hp {}
+.player1-stats #player1-atk {}
+.player1-stats #player1-def {}
+
+.player1-inventory {}
+
+.enemy1 {}
+.enemy1-stats {}
+.enemy1-inventory {}
+
+.stage {}
+#stage0 {background:;}
+#stage1 {background:;}
+#stage2 {background:;}

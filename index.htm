@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game</title>
+  <link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+</head>
+<body>
+
+  <div id="container">
+    <div id="game">
+      <div id="stage0" class="stage">
+      <nav class="debug-menu">kill players</nav>
+
+      <nav class="stage-select hidden">
+        <button>RIGHT</button>
+        <button>DOWN</button>
+        <button>LEFT</button>
+        <button>UP</button>
+      </nav>
+
+      <div class="player1">player1</div>
+      <div class="monster1">monster1</div>
+
+      <div id="effect" class="effect-default hidden">effect</div>
+
+      <div class="player1-stats">
+        <div class="name">player1.name</div>
+        <div class="lvl">lvl</div>
+        <div class="hp">hp</div>
+        <div class="atk">atk</div>
+        <div class="def">def</div>
+      </div>
+      <nav class="player1-inventory hidden">
+        <div class="item">item</div>
+        <div class="item">item</div>
+      </nav>
+      <nav class="player1-menu">
+        <button id="btn-p1-atk">ATK</button>
+        <button id="btn-p1-def">DEF</button>
+        <button id="btn-o1-inv">INV</button>
+      </nav>
+      
+      <nav class="monster1-inventory hidden"></nav>
+      <nav class="monster1-menu hidden"></nav>
+      <div class="monster1-stats">
+        <div class="monster1-name">monster1.name</div>
+        <div class="monster1-lvl">lvl</div>
+        <div class="monster1-hp">hp</div>
+        <div class="monster1-atk">atk</div>
+        <div class="monster1-def">def</div>
+      </div>
+
+        <div class="loot"></div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

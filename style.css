@@ -1,0 +1,59 @@
+* { border:0; margin:0;}
+
+body {background:black; font:1em; color: white;}
+
+div, nav {border: 1px solid white; image-rendering: pixelated;}
+
+#container {
+width:800px;
+height:800px;
+margin: 0 auto;
+}
+
+#game { position:relative;}
+
+
+/*DEBUG*/
+.debug-menu {position:absolute;top:0;left:0;right:0;}
+
+
+/*SPECIALS*/
+.hidden { display:none;}
+
+
+/*EFFECTS*/
+#effect .effect-default {}
+
+
+/*PLAYER 1*/
+.player1 { width:100px; height:200px; background:green; display:inline-block;}
+
+.player1-stats {position:absolute;bottom:20px;left:0;}
+.player1-stats div {display: inline-block;}
+.player1-stats #player1-name {}
+.player1-stats #player1-lvl {}
+.player1-stats #player1-hp {}
+.player1-stats #player1-atk {}
+.player1-stats #player1-def {}
+
+.player1-inventory {position:absolute;top:0;left:0;right:0;}
+
+
+/*MONSTER 1*/
+.monster1 {width:100px; height:200px; background:red; float:; display: inline-block;}
+
+.monster1-stats {position:absolute;bottom:20px;right:20px;}
+.monster1-stats div {display: inline-block;}
+.monster1-stats #monster1-name {}
+.monster1-stats #monster1-lvl {}
+.monster1-stats #monster1-hp {}
+.monster1-stats #monster1-atk {}
+.monster1-stats #monster1-def {}
+
+.monster1-inventory {}
+
+/*STAGE*/
+.stage {width:800px;height:800px;}
+#stage0 {background:;}
+#stage1 {background:;}
+#stage2 {background:;}
