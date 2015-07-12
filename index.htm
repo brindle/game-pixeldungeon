@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+<charset="utf-8">
 <html>
 <head>
   <title>Game</title>
   <link rel="stylesheet" href="style.css" type="text/css" charset="utf-8" />
+
 </head>
 <body>
 
   <div id="container">
     <div id="game">
-      <div id="stage0" class="stage">
+      <div id="stage" class="stage hidden">
       <nav class="debug-menu">kill players</nav>
 
       <nav class="stage-select hidden">
@@ -18,30 +20,47 @@
         <button>UP</button>
       </nav>
 
-      <div class="player1">player1</div>
-      <div class="monster1">monster1</div>
+      <div id="display" class="hidden"></div>
 
       <div id="effect" class="effect-default hidden">effect</div>
 
+      <div id="player1"></div>
+      <div id="monster1"></div>
+
       <div class="player1-stats">
-        <div class="name">player1.name</div>
-        <div class="lvl">lvl</div>
-        <div class="hp">hp</div>
-        <div class="atk">atk</div>
-        <div class="def">def</div>
+        <div class="player1-name">player1.name</div>
+        <div class="player1-lvl">lvl</div>
+        <div class="player1-hp">hp</div>
+        <div class="player1-atk">atk</div>
+        <div class="player1-def">def</div>
       </div>
-      <nav class="player1-inventory hidden">
+      <nav id="player1-inventory" class="hidden">
         <div class="item">item</div>
         <div class="item">item</div>
       </nav>
-      <nav class="player1-menu">
+      <nav id="player1-menu">
         <button id="btn-p1-atk">ATK</button>
         <button id="btn-p1-def">DEF</button>
+        <button id="btn-o1-spc">SPC</button>
         <button id="btn-o1-inv">INV</button>
       </nav>
-      
-      <nav class="monster1-inventory hidden"></nav>
+      <nav id="player1-menu-spc" class="hidden">
+        <button id="btn-p1-sp1">SP1</button>
+        <button id="btn-p1-sp2">SP2</button>
+        <button id="btn-o1-sp3">SP3</button>
+        <button id="btn-o1-sp4">SP4</button>
+      </nav>
+      <nav class="monster1-inventory hidden">
+        <div class="item">item</div>
+        <div class="item">item</div>
+      </nav>
       <nav class="monster1-menu hidden"></nav>
+      <nav class="monster1-menu-spc hidden">
+        <button id="btn-m1-sp1">SP1</button>
+        <button id="btn-m1-sp2">SP2</button>
+        <button id="btn-m1-sp3">SP3</button>
+        <button id="btn-m1-sp4">SP4</button>
+      </nav>
       <div class="monster1-stats">
         <div class="monster1-name">monster1.name</div>
         <div class="monster1-lvl">lvl</div>
@@ -55,6 +74,10 @@
       </div>
     </div>
   </div>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script type="text/javascript" src="./js/soundmanager2.js"></script>
+  <script type="text/javascript" src="./js/game-pixeldungeon-v0.js"></script>
 
 </body>
 </html>

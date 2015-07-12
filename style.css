@@ -1,49 +1,93 @@
 * { border:0; margin:0;}
 
-body {background:black; font:1em; color: white;}
+@font-face {
+    font-family: 'uni_05_53regular';
+    src: url('./fonts/uni0553-webfont-webfont.eot');
+    src: url('./fonts/uni0553-webfont-webfont.eot?#iefix') format('embedded-opentype'),
+         url('./fonts/uni0553-webfont-webfont.woff2') format('woff2'),
+         url('./fonts/uni0553-webfont-webfont.woff') format('woff'),
+         url('./fonts/uni0553-webfont-webfont.ttf') format('truetype'),
+         url('./fonts/uni0553-webfont-webfont.svg#uni_05_53regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
-div, nav {border: 1px solid white; image-rendering: pixelated;}
+body {background:black; font-size:9px; text-transform: uppercase; -webkit-font-smoothing: none;}
+
+button {font-size:13px; font-family: 'uni_05_53regular'; font-weight: normal; background-color: black; color:grey; padding:10px;}
+
+div, nav {image-rendering: pixelated;}
+
 
 #container {
-width:800px;
-height:800px;
+width:500px;
+height:500px;
 margin: 0 auto;
+position: relative;
+margin-top:13%;
 }
 
 #game { position:relative;}
 
 
 /*DEBUG*/
-.debug-menu {position:absolute;top:0;left:0;right:0;}
+.debug-menu {position:absolute;top:0;right:0; display: inline;}
+
 
 
 /*SPECIALS*/
 .hidden { display:none;}
 
 
+/*GAME DISPLAY*/
+#display {font-family: 'uni_05_53regular' !important;
+  position:absolute;top:20px;right:20px;left:20px; border:5px solid black; padding:5px 10px 10px 10px; background:black; font-size: 20px; color: grey; font-weight: bold; letter-spacing: 2px;
+}
+
+
 /*EFFECTS*/
 #effect .effect-default {}
 
 
-/*PLAYER 1*/
-.player1 { width:100px; height:200px; background:green; display:inline-block;}
 
-.player1-stats {position:absolute;bottom:20px;left:0;}
-.player1-stats div {display: inline-block;}
+/*PLAYER 1*/
+#player1 {position:absolute;top:70px;left:0; width:300px; height:350px; display:inline-block; background-size:cover !important;}
+#player1 .weapon {}
+#player1 .item {}
+#player1 .armour {}
+#player1 .head {}
+#player1 .body {}
+#player1.default {background: url("./img/player1-fighter-default.gif");}
+#player1.attack {background: url("./img/player1-fighter-attack.gif");}
+
+.player1-stats {position:absolute;bottom:20px;left:20px; font-size:11px; font-family: 'uni_05_53regular'; font-weight: normal; color:white;}
+.player1-stats div {display: inline-block; margin-right:5px;}
 .player1-stats #player1-name {}
 .player1-stats #player1-lvl {}
 .player1-stats #player1-hp {}
 .player1-stats #player1-atk {}
 .player1-stats #player1-def {}
 
-.player1-inventory {position:absolute;top:0;left:0;right:0;}
+#player1-inventory {position:absolute;bottom:0;left:20px}
+#player1-inventory .item {display:inline-block;}
+
+#player1-menu {position:absolute;bottom:40px;left:20px; }
+#player1-menu .btn-p1-atk {}
+#player1-menu .btn-p1-def {}
+#player1-menu .btn-p1-spc {}
+#player1-menu .btn-p1-inv {}
+
+#player1-menu-spc {position:absolute;bottom:40px;left:160px;}
+
 
 
 /*MONSTER 1*/
-.monster1 {width:100px; height:200px; background:red; float:; display: inline-block;}
+#monster1 {position:absolute;top:70px;right:0; width:300px; height:350px; display:inline-block; background-size:cover !important;}
+#monster1.dead {background:url("./img/monster-dead.gif");}
+#monster1.rat {background:url("./img/monster-rat-default.gif");}
 
-.monster1-stats {position:absolute;bottom:20px;right:20px;}
-.monster1-stats div {display: inline-block;}
+.monster1-stats {position:absolute;bottom:20px;right:20px; font-size:11px; font-family: 'uni_05_53regular'; font-weight: normal; color:white;}
+.monster1-stats div {display: inline-block; margin-left:5px;}
 .monster1-stats #monster1-name {}
 .monster1-stats #monster1-lvl {}
 .monster1-stats #monster1-hp {}
@@ -52,8 +96,17 @@ margin: 0 auto;
 
 .monster1-inventory {}
 
+.monster1-menu-spc {position:absolute;bottom:40px;right:160px;}
+
+
+
 /*STAGE*/
-.stage {width:800px;height:800px;}
-#stage0 {background:;}
-#stage1 {background:;}
-#stage2 {background:;}
+#stage {width:500px;height:500px; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;}
+.stage {background:black;}
+.stage0 {background: url("./img/stages/stagebg-0.gif");}
+.stage1 {background: url("./img/stages/stagebg-1.gif");}
+.stage2 {background: green;}
