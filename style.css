@@ -12,9 +12,9 @@
     font-style: normal;
 }
 
-body {background:black; font-size:9px; text-transform: uppercase; -webkit-font-smoothing: none;}
+body {background:black; font-size:9px; text-transform: uppercase; -webkit-font-smoothing: none; background: url("./img/buttons-bg.gif") top center;}
 
-button {font-size:13px; font-family: 'uni_05_53regular'; font-weight: normal; background-color: black; color:grey; padding:10px;}
+button {font-size:13px; font-family: 'uni_05_53regular'; font-weight: normal; background-color: black; color:grey; padding:10px; }
 
 div, nav {image-rendering: pixelated;}
 
@@ -24,10 +24,10 @@ width:500px;
 height:500px;
 margin: 0 auto;
 position: relative;
-margin-top:13%;
+margin-top:133px;
 }
 
-#game { position:relative;}
+#game { position:relative; }
 
 
 /*DEBUG*/
@@ -41,7 +41,7 @@ margin-top:13%;
 
 /*GAME DISPLAY*/
 #display {font-family: 'uni_05_53regular' !important;
-  position:absolute;top:20px;right:20px;left:20px; border:5px solid black; padding:5px 10px 10px 10px; background:black; font-size: 20px; color: grey; font-weight: bold; letter-spacing: 2px;
+  position:absolute;top:20px;right:20px;left:20px; border:5px solid black; padding:5px 10px 10px 10px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
 }
 
 
@@ -84,7 +84,8 @@ margin-top:13%;
 /*MONSTER 1*/
 #monster1 {position:absolute;top:70px;right:0; width:300px; height:350px; display:inline-block; background-size:cover !important;}
 #monster1.dead {background:url("./img/monster-dead.gif");}
-#monster1.rat {background:url("./img/monster-rat-default.gif");}
+#monster1.rat {background:url("./img/monster-rat.gif");}
+#monster1.ghost {background:url("./img/monster-ghost.gif");}
 
 .monster1-stats {position:absolute;bottom:20px;right:20px; font-size:11px; font-family: 'uni_05_53regular'; font-weight: normal; color:white;}
 .monster1-stats div {display: inline-block; margin-left:5px;}
@@ -101,7 +102,7 @@ margin-top:13%;
 
 
 /*STAGE*/
-#stage {width:500px;height:500px; 
+#stage {width:500px;height:500px;  
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -109,4 +110,4 @@ margin-top:13%;
 .stage {background:black;}
 .stage0 {background: url("./img/stages/stagebg-0.gif");}
 .stage1 {background: url("./img/stages/stagebg-1.gif");}
-.stage2 {background: green;}
+.stage2 {background: url("./img/stages/stagebg-2.gif");;}
