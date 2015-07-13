@@ -70,6 +70,7 @@ overflow: hidden;
 .player1-stats .player1-hp {font-size:22px; margin-bottom: -2px}
 .player1-stats .player1-atk {float:left;}
 .player1-stats .player1-def {float:left}
+.player1-stats .player1-sp {float:left}
 
 #player1-inv {position:absolute;bottom:5px;right:5px}
 #player1-inv button {background-size:cover !important; height:55px; width:55px;margin-left:5px;}

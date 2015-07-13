@@ -184,7 +184,15 @@ btnPlayer1.def = $("#btn-p1-def");
 btnPlayer1.spc = $("#btn-p1-spc");
 btnPlayer1.inv = $("#btn-p1-inv");
 
+// ITEM BUTTONS
+var btnItem = {};
+btnItem.redPotion = $(".redPotion");
+btnItem.greenPotion = $(".greenPotion");
 
+// SPECIAL BUTTONS
+var btnSpecial = {};
+btnSpecial.doubleStrike = $(".doubleStrike");
+btnSpecial.holySword = $(".holySword");
 
 // STAGE SETUP
 
@@ -250,16 +258,18 @@ stageSetup.nextStage = function(){
 
 var itemRedPotion = function() {player.hp+=5};
 var itemGreenPotion = function() {player.sp+=5};
-var btn = {};
-// ITEM BUTTONS
-btn.redPotion = $(".redPotion");
-btn.greenPotion = $(".redPotion");
-// SPECIAL BUTTONS
-btn.doubleStrike = $(".doubleStrike");
-btn.holySword = $(".holySword");
 
-var spcDoubleStrike = function() { alert("DoubleStrike")/* player turn x2 -2sp*/};
+// SPECIAL ATTACKS
+var spcDoubleStrike = function() { alert("DoubleStrike");/* player turn x2 -2sp*/};
 var spcHolySword = function() {/* player turn x2 -2sp*/};
+
+btnSpecial.doubleStrike.on("click", function(){
+  alert("hello");
+});
+
+btnSpecial.holySword.on("click", function(){
+  alert("hello");
+});
 
 // PLAYER SETUP
 
@@ -314,7 +324,9 @@ var addSpecialToPlayer = function (specialName, spcSpecialName) {
 
   var specialToAdd = "<button class="+specialName+"></button>";
   $("#player1-menu-spc").append(specialToAdd);
+
 }
+
 
 
 // MONSTER SETUP
@@ -334,7 +346,7 @@ function monsterSetup(monsterName) {
 // function to hide using css class
 function hideThis(thingToHide) {
   $(thingToHide).addClass('hidden');
-  console.log(thingToHide)
+  console.log(thingToHide);
 }
 // function to remove hide using css class
 function showThis(thingToShow) {
@@ -375,12 +387,28 @@ function waitFor(timeToWait) {
 
 function changeSprite(spriteToChange, classToChange) {
   // remove all classes on player
-  $(spriteToChange).removeClass()
+  $(spriteToChange).removeClass();
   // change class to classToChange
-  $(spriteToChange).addClass(classToChange)
+  $(spriteToChange).addClass(classToChange);
 }
 
-
+var updateMonsterStats = function() {
+  $('.monster1-hp').html( stageMonster.hp + ' hp' );
+  $('.monster1-name').html( stageMonster.name );
+  $('.monster1-lvl').html('lvl ' + stageMonster.lvl );
+  $('.monster1-hp').html( stageMonster.hp + ' hp' );
+  $('.monster1-atk').html( stageMonster.atk + ' atk' );
+  $('.monster1-def').html( stageMonster.def + ' def' );
+  $('#btn-m1-sp1').html( stageMonster.spc[0] );
+}
+var updatePlayerStats = function() {
+  $('.player1-name').html( player.name );
+  $('.player1-lvl').html('lvl ' + player.lvl );
+  $('.player1-hp').html( player.hp + ' hp' );
+  $('.player1-atk').html( player.atk + ' atk' );
+  $('.player1-def').html( player.def + ' def' );
+  $('.player1-sp').html( player.sp + ' sp' );
+}
 
 // BATTLE FUNCTIONS
 
@@ -424,13 +452,11 @@ btnPlayer1.atk.on("click", function(){
   // if player faster continue.
 
   // PLAYER ATTACK ANIMATION
-  playerTurn.attack();
+  playerAttack();
 
   // Monster dead?
   if (stageMonster.hp > 0) {
     // No.
-    
-
     setTimeout(function(){
       monsterTurn.attack();
     }, 1000)
@@ -448,26 +474,48 @@ btnPlayer1.atk.on("click", function(){
   }
 });
 
-var updateMonsterStats = function() {
-  $('.monster1-hp').html( stageMonster.hp + ' hp' );
-  $('.monster1-name').html( stageMonster.name );
-  $('.monster1-lvl').html('lvl ' + stageMonster.lvl );
-  $('.monster1-hp').html( stageMonster.hp + ' hp' );
-  $('.monster1-atk').html( stageMonster.atk + ' atk' );
-  $('.monster1-def').html( stageMonster.def + ' def' );
-  $('#btn-m1-sp1').html( stageMonster.spc[0] );
-}
-var updatePlayerStats = function() {
-  $('.player1-name').html( player.name );
-  $('.player1-lvl').html('lvl ' + player.lvl );
-  $('.player1-hp').html( player.hp + ' hp' );
-  $('.player1-atk').html( player.atk + ' atk' );
-  $('.player1-def').html( player.def + ' def' );
-}
 
-var playerTurn = function() {
-}
-playerTurn.attack = function() {
+// setTimeout(function(){
+//   btnSpecial.doubleStrike = $(".doubleStrike");
+//   btnSpecial.holySword = $(".holySword");
+// }, 1000);
+
+btnPlayer1.def.on("click", function(){
+
+  currentBattle.round++;
+  // hide player buttons during attack
+  hideThis(spritePlayer1Menu);
+
+  // check if player is faster than monster
+  // if player faster continue.
+
+  // PLAYER ATTACK ANIMATION
+  playerAttack();
+  setTimeout(playerAttack, 1000);
+
+  // Monster dead?
+  if (stageMonster.hp > 0) {
+    // No.
+    setTimeout(function(){
+      monsterTurn.attack();
+    }, 2000)
+  } else if (stageMonster.hp <= 0) {
+    // Yes.
+    // v2 / Add loot?
+    // v3 / Level select?
+
+    // display you won the battle message
+    hideThis(spritePlayer1Menu);
+    //monster dead show animation
+    setTimeout(monsterDead, 1000)
+
+    stageSetup.stageOver();
+  }
+});
+
+
+
+playerAttack = function() {
   // attack monster
   updateDisplay(player.name+" attacks!");
   changeSprite("#player1", "attack");
@@ -500,18 +548,7 @@ playerTurn.attack = function() {
   updateDisplay(stageMonster.name+" took "+damageGiven+" damage!");
 }
 
-playerTurn.defend = function() {
-  // change current stance to defend for duration of monster go
-}
-playerTurn.attack = function() {
-  //
-}
-playerTurn.useItem = function() {
-  //
-}
-playerTurn.useSpecial = function() {
-  //
-}
+
 
 var monsterTurn = function() {
   //
