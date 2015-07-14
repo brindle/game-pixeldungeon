@@ -517,15 +517,7 @@ var monsterTurn = function() {
 
 monsterTurn.special = function() {
  
-  // if Rat
-
-  // if Ghost
-
-  // if Skeleton
-
-  // if Blob
-
-  // if Princess
+alert("hello");
 
 };
 
@@ -702,7 +694,7 @@ btn.playerAtk.on("click", function(){
   if (stageMonster.hp > 0) {
     // No.
     setTimeout(function(){
-      monsterTurn.attack();
+      monsterTurn();
     }, 1000)
 
     currentBattle.round++;
