@@ -206,7 +206,7 @@ var stageSetup = function(currentStage) {
   soundManager.stopAll();
   // change stage background music to
 
-  // soundManager.play('stage'+currentStage);
+   soundManager.play('stage'+currentStage);
   // setup monster relative to stage
   switch(currentStage) {
     case 1:

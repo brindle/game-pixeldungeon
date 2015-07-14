@@ -45,6 +45,13 @@ overflow: hidden;
   position:absolute;top:25px;right:5px;left:5px; border:0 solid black; padding:5px 10px 10px 15px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
 }
 
+#display span {color:grey;}
+
+#display2 {font-family: 'uni_05_53regular' !important;
+  position:absolute;top:25px;right:5px;left:5px; border:0 solid black; padding:5px 10px 10px 15px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
+z-index:100;}
+
+#display2 span {color:grey;}
 
 /*EFFECTS*/
 #effect .effect-default {}
@@ -62,36 +69,37 @@ overflow: hidden;
 #player1.dead {background:url("./img/player1-dead.gif");}
 #player1.attack {background: url("./img/player1-fighter-attack.gif");}
 #player1.walk {background: url("./img/player1-fighter-walk.gif");}
+#player1.defend {background: url("./img/player1-fighter-defend.gif");}
+#player1.useHolySword {background: url("./img/player1-fighter-useholySword.gif");}
+#player1.useGreenPotion {background: url("./img/player1-fighter-greenpotion.gif");}
+#player1.useRedPotion {background: url("./img/player1-fighter-redpotion.gif");}
 
 .player1-stats {position:absolute;bottom:65px;left:10px; font-size:10px; font-family: 'uni_05_53regular'; font-weight: normal; color:white; width: auto; margin-top:0; margin-bottom:0;}
 .player1-stats div {display: block; margin-right:10px;}
 .player1-stats .player1-name {float: left;}
 .player1-stats .player1-lvl {float:left;}
-.player1-stats .player1-hp {font-size:22px; margin-bottom: -2px}
+.player1-stats .player1-hp {font-size:24px; margin-bottom: -10px float:right; display:inline-block;}
 .player1-stats .player1-atk {float:left;}
 .player1-stats .player1-def {float:left}
-.player1-stats .player1-sp {float:left}
+.player1-stats .player1-sp {display:inline-block;font-size:16px;}
 
-#player1-inv {position:absolute;bottom:5px;right:5px}
-#player1-inv button {background-size:cover !important; height:55px; width:55px;margin-left:5px;}
+#player1-inv {position:absolute;bottom:10px;right:10px}
+#player1-inv button {background-size:cover !important; height:55px; width:55px;margin-left:10px;}
 #player1-inv .redPotion {background:url("./img/item-redPotion.gif")}
 #player1-inv .greenPotion {background:url("./img/item-greenPotion.gif")}
 
 #player1-menu {position:absolute;bottom:5px;left:5px; }
-#player1-menu button { background-size:cover !important; height:55px; width:55px; margin-right:5px;}
+#player1-menu button { background-size:cover !important; height:55px; width:55px;margin-right:5px;}
 #player1-menu #btn-p1-atk {background:url("./img/ico-p1-atk.gif")}
 #player1-menu #btn-p1-atk {background:url("./img/ico-p1-atk.gif")}
 #player1-menu #btn-p1-def {background:url("./img/ico-p1-def.gif")}
 #player1-menu #btn-p1-spc {background:url("./img/ico-p1-spc.gif")}
 #player1-menu #btn-p1-inv {background:url("./img/ico-p1-inv.gif")}
 
-#player1-menu-spc {position:absolute;bottom:5px;right:125px;}
+#player1-menu-spc {position:absolute;bottom:5px;right:5px}
 #player1-menu-spc button { background-size:cover !important; height:55px; width:55px; margin-left:5px;}
 #player1-menu-spc .doubleStrike {background:url("./img/spc-doubleStrike.gif")}
 #player1-menu-spc .holySword {background:url("./img/spc-holySword.gif")}
-
-
-
 
 /*MONSTER 1*/
 #monster1 {position:absolute;top:60px;right:0; width:300px; height:350px; display:inline-block; background-size:cover !important;}
@@ -101,17 +109,22 @@ overflow: hidden;
 #monster1.Ghost.attack {background:url("./img/monster-ghost-attack.gif");}
 
 
-.monster1-stats {position:absolute;top:5px;right:10px; font-size:10px; font-family: 'uni_05_53regular'; font-weight: normal; color:grey;}
-.monster1-stats div {display: inline-block; margin-left:5px;}
-.monster1-stats .monster1-name {}
-.monster1-stats .monster1-lvl {}
-.monster1-hp {}
-.monster1-stats .monster1-atk {}
-.monster1-stats .monster1-def {}
+.monster1-stats {position:absolute;bottom:65px;right:10px; font-size:10px; font-family: 'uni_05_53regular'; font-weight: normal; color:white; width: auto; margin-top:0; margin-bottom:0;}
+.monster1-stats div { margin-left:10px; text-align: right;}
+.monster1-stats .monster1-name {float:right;}
+.monster1-stats .monster1-lvl {float:right;}
+.monster1-hp {font-size:22px; margin-bottom: -2px;display:block;}
+.monster1-stats .monster1-atk {float:right;}
+.monster1-stats .monster1-def {float:right;}
 
 .monster1-inventory {}
 
 .monster1-menu-spc {position:absolute;bottom:40px;right:160px;}
+
+/*EFFECT*/
+#effect {position:absolute;top:60px;left:0; width:500px; height:350px; background-size:cover !important; z-index: 500;}
+#effect.default {background:none;}
+#effect.effectHolySword {background:url("./img/effect-holysword.gif");}
 
 
 
