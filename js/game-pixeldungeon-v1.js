@@ -39,8 +39,8 @@ var player = {};
 player.name = "Jeff";
 player.type = "Fighter";
 player.lvl = 1;
-player.hp = 10;
-player.sp = 10;
+player.hp = 20;
+player.sp = 15;
 player.atk = 3;
 player.def = 1;
 player.spd = 1;
@@ -77,7 +77,7 @@ stageMonster.maxhp = 10;
 stageMonster.hp = 10;
 stageMonster.maxsp = 10;
 stageMonster.sp = 10;
-stageMonster.atk = 1;
+stageMonster.atk = 2;
 stageMonster.def = 1;
 stageMonster.spd = 1;
 stageMonster.spc = {};
@@ -89,9 +89,9 @@ var monsterRat = {};
 monsterRat.name = "Ratty";
 monsterRat.type = "Rat";
 monsterRat.lvl = 1;
-monsterRat.maxhp = 10;
-monsterRat.hp = 5;
-monsterRat.sphp = 20;
+monsterRat.maxhp = 12;
+monsterRat.hp = 8;
+monsterRat.maxsp = 20;
 monsterRat.sp = 10;
 monsterRat.atk = 2;
 monsterRat.def = 1;
@@ -104,10 +104,10 @@ var monsterGhost = {};
 monsterGhost.name = "Boo";
 monsterGhost.type = "Ghost";
 monsterGhost.lvl = 2;
-monsterGhost.maxhp = 10;
-monsterGhost.hp = 10;
+monsterGhost.maxhp = 14;
+monsterGhost.hp = 12;
 monsterGhost.maxsp = 10;
-monsterGhost.sp = 10;
+monsterGhost.sp = 15;
 monsterGhost.atk = 3;
 monsterGhost.def = 1;
 monsterGhost.spd = 1;
@@ -118,12 +118,12 @@ monsterGhost.inv = [];
 var monsterSkeleton = {};
 monsterSkeleton.name = "Skelly";
 monsterSkeleton.type = "Skeleton";
-monsterSkeleton.lvl = 2;
-monsterSkeleton.maxhp = 10;
-monsterSkeleton.hp = 10;
+monsterSkeleton.lvl = 3;
+monsterSkeleton.maxhp = 18;
+monsterSkeleton.hp = 14;
 monsterSkeleton.sp = 10;
-monsterSkeleton.atk = 1;
-monsterSkeleton.def = 1;
+monsterSkeleton.atk = 4;
+monsterSkeleton.def = 2;
 monsterSkeleton.spd = 1;
 monsterSkeleton.exp = 30;
 monsterSkeleton.spc = [{"bash" : stageMonster.atk * 2, "kill" : 100}];
@@ -133,16 +133,31 @@ var monsterBlob = {};
 monsterBlob.name = "Gloopy";
 monsterBlob.type = "Blob";
 monsterBlob.lvl = 4;
-monsterBlob.maxhp = 20;
-monsterBlob.hp = 20;
+monsterBlob.maxhp = 16;
+monsterBlob.hp = 16;
 monsterBlob.maxsp = 10;
 monsterBlob.sp = 10;
-monsterBlob.atk = 3;
+monsterBlob.atk = 1;
 monsterBlob.def = 2;
 monsterBlob.spd = 1;
 monsterBlob.exp = 40;
 monsterBlob.spc = [{"squidge" : stageMonster.atk * 3, "kill" : 100}]
 monsterBlob.inv = [];
+
+var monsterPrincess = {};
+monsterPrincess.name = "Princess";
+monsterPrincess.type = "Princess";
+monsterPrincess.lvl = 5;
+monsterPrincess.maxhp = 20;
+monsterPrincess.hp = 20;
+monsterPrincess.maxsp = 20;
+monsterPrincess.sp = 20;
+monsterPrincess.atk = 1;
+monsterPrincess.def = 1;
+monsterPrincess.spd = 1;
+monsterPrincess.exp = 40;
+monsterPrincess.spc = [{"squidge" : stageMonster.atk * 3, "kill" : 100}]
+monsterPrincess.inv = [];
 
 // !!! UNDEAD BOSS
 // starts off with -hp need to heal it to kill it.
@@ -153,9 +168,11 @@ monsterBlob.inv = [];
 var spriteDisplay = $("#display");
 var spriteDisplay2 = $("#display2");
 var spriteStage = $("#stage");
-var spritePlayer1 = $("player1");
-var spriteMonster1 = $("monster1");
+var spritePlayer1 = $("#player1");
+var spriteMonster1 = $("#monster1");
 var spritePlayer1Menu = $("#player1-menu");
+var spritePlayer1Stats = $(".player1-stats");
+var spriteMonster1Stats = $(".monster1-stats");
 var spritePlayer1MenuSpc = $("#player1-menu-spc");
 var spritePlayer1MenuInv = $("#player1-inv");
 var spriteEffect = $("#effect");
@@ -183,24 +200,35 @@ var itemGreenPotion = function() {player.sp+=5};
 var spcDoubleStrike = function() {};
 var spcHolySword = function() {/* player turn x2 -2sp*/};
 
-
 // STAGE SETUP
-var currentStage = 1;
+var currentStage = 0;
 
-var stageSetup = function(currentStage) {
+// GAME SETUP
+
+function gameSetup() {
+  stageSetup(0);
+  showThis(spriteStage);
+  // startBattle();
+}
+
+var stageSetup = function(setupCurrentStage) {
 
   // HIDE PLAYER MENU
   hideMenus();
 
   // CHANGE STAGE BACKGROUND
-  $("#stage").removeClass("stage").addClass("stage"+currentStage);
+  $("#stage").removeClass();
+  $("#stage").addClass("stage"+setupCurrentStage);
   
   // STOP ALL SOUND AND LOAD STAGE MUSIC
   soundManager.stopAll();
-  soundManager.play('stage'+currentStage);
+  soundManager.play('stage'+setupCurrentStage);
   
   // CHANGE STAGE MONSTER
-  switch(currentStage) {
+  switch(setupCurrentStage) {
+    case 0:
+    var stageMonster = monsterPrincess;
+    break;
     case 1:
     var stageMonster = monsterRat;
     break;
@@ -211,31 +239,73 @@ var stageSetup = function(currentStage) {
     var stageMonster = monsterSkeleton;
     break;
     case 4:
-    var stageMonster = monsterBlob;
+    var stageMonster = monsterPrincess;
+    break;
+    case 5:
+    var stageMonster = monster;
     break;
     default:
-    var stageMonster = monsterDefault;
+    var stageMonster = monster;
   }
 
-  // ADD STAGE MONSTER TO STAGE
-  monsterSetup(stageMonster);
-
-  // ANIM / PLAYER WALK ON STAGE
-  $("#player1").removeAttr('class');
-  $("#player1").addClass("walk");
-  $("#player1").animate({left: '-200px'},1);
-  $("#player1").animate({left: '+=200px'},2000);
-  setTimeout(function(){
+  if (currentStage == 5) {
+    hideThis(spriteDisplay);
+    hideThis(spritePlayer1Stats);
+    hideThis(spriteMonster1Stats);
+    hideThis(spriteMonster1);
+    hideMenus();
+    // ANIM / PLAYER WALK ON STAGE
     $("#player1").removeAttr('class');
-    $("#player1").addClass("default");
-  }, 2000)
-  setTimeout(function(){
+    $("#player1").addClass("walk");
+    $("#player1").animate({left: '-200px'},1);
+    $("#player1").animate({left: '+=200px'},2000);
+    setTimeout(function(){
+      $("#player1").removeAttr('class');
+      $("#player1").addClass("default");
+    }, 2000);
+    playerSetup();
 
+  } else if (currentStage == 0) {
+    currentStage +=1;
+    hideThis(spriteDisplay);
+    hideThis(spritePlayer1Stats);
+    hideThis(spriteMonster1Stats);
+    hideThis(spritePlayer1);
+    hideMenus();
+    setTimeout(function(){
+      
+      stageSetup(1);
+
+    }, 9000)
+  }
+
+   else {
+    // ADD STAGE MONSTER TO STAGE
+    monsterSetup(stageMonster);
+
+    // ANIM / PLAYER WALK ON STAGE
+    $("#player1").removeAttr('class');
+    $("#player1").addClass("walk");
+    $("#player1").animate({left: '-200px'},1);
+    $("#player1").animate({left: '+=200px'},2000);
+    setTimeout(function(){
+      $("#player1").removeAttr('class');
+      $("#player1").addClass("default");
+    }, 2000);
+  setTimeout(function(){
+    showThis(spriteDisplay);
+    showThis(spritePlayer1Stats);
+    showThis(spriteMonster1Stats);
+    playerSetup();
     // SHOW PLAYER MENU
     showThis(spritePlayer1Menu);
-  }, 2000)
+  
+  }, 2000);
+  
+  }
 
 }
+
 
 stageSetup.stageOver = function(){
   // RESET BATTLE ROUND
@@ -246,15 +316,20 @@ stageSetup.stageOver = function(){
 }
 
 stageSetup.nextStage = function(){
-  nextStageNumber = currentStage + 1;
-  stageSetup(nextStageNumber);
+  currentStage += 1;
+  
+  nextStageNumber = currentStage;
+  
+  setTimeout(function(){
+    stageSetup(nextStageNumber);
+  }, 2000)
 }
 
 
 // PLAYER SETUP
 
 function playerSetup() {
-  
+
   // setup player stats
   $('#player1').addClass('default');
   updatePlayerStats();
@@ -280,7 +355,12 @@ function monsterSetup(monsterName) {
   // update monster class on stage
   $('#monster1').addClass(stageMonster.type);
   updateMonsterStats();
-  updateDisplay("You encounter a "+stageMonster.name)
+  if (currentStage == 4) {
+    updateDisplay("You came to rescue me..? FOOL!");
+  
+  } else {
+    updateDisplay("You encounter a "+stageMonster.name)
+  }
 }
 
 
@@ -348,14 +428,20 @@ function updateDisplay(messageToDisplay) {
     // wait a short period then update with new message
     var displayWait = function() {
       //Due to closures, outputVar will be populated
-      spriteDisplay.html("You encounter a "+stageMonster.name);
+      if (currentStage == 4) {
+        spriteDisplay.html("You came to rescue me..? FOOL!");
+      
+      } else {
+        spriteDisplay.html("You encounter a "+stageMonster.name);
+      }
+      
       showThis(spriteDisplay);
     };
     // Will call function in local scope
     setTimeout(displayWait, 100);
   } else {
-  hideThis(spriteDisplay);
-  spriteDisplay.html("");
+    hideThis(spriteDisplay);
+    spriteDisplay.html("");
 
   // wait a short period then update with new message
   var displayWait = function() {
@@ -365,7 +451,7 @@ function updateDisplay(messageToDisplay) {
   };
   // Will call function in local scope
   setTimeout(displayWait, 100);
-  }
+}
 }
 
 function updateDisplay2(messageToDisplay) {
@@ -375,8 +461,19 @@ function updateDisplay2(messageToDisplay) {
     // wait a short period then update with new message
     var displayWait = function() {
       //Due to closures, outputVar will be populated
-      
+      spriteDisplay.html("You encounter a "+stageMonster.name);
       hideThis(spriteDisplay2);
+
+      //Due to closures, outputVar will be populated
+      if (currentStage == 4) {
+        spriteDisplay.html("You came to rescue me..? FOOL!");
+
+        hideThis(spriteDisplay2);
+      
+      } else {
+        spriteDisplay.html("You encounter a "+stageMonster.name);
+        hideThis(spriteDisplay2);
+      }
     };
     // Will call function in local scope
     setTimeout(displayWait, 1);
@@ -385,8 +482,8 @@ function updateDisplay2(messageToDisplay) {
     hideThis(spriteDisplay2);
     showThis(spriteDisplay);
   } else {
-  hideThis(spriteDisplay2);
-  spriteDisplay2.html("");
+    hideThis(spriteDisplay2);
+    spriteDisplay2.html("");
 
   // wait a short period then update with new message
   var displayWait = function() {
@@ -395,8 +492,8 @@ function updateDisplay2(messageToDisplay) {
     showThis(spriteDisplay2);
   };
   // Will call function in local scope
-  setTimeout(displayWait, 1);
-  }
+  setTimeout(displayWait, 100);
+}
 }
 
 // WAIT
@@ -431,6 +528,7 @@ var updateMonsterStats = function() {
   $('.monster1-hp').html( stageMonster.hp + ' hp' );
   $('.monster1-atk').html( stageMonster.atk + ' atk' );
   $('.monster1-def').html( stageMonster.def + ' def' );
+  $('.monster1-sp').html( stageMonster.sp + ' sp' );
   $('#btn-m1-sp1').html( stageMonster.spc[0] );
 }
 var updatePlayerStats = function() {
@@ -494,44 +592,160 @@ var playerDead = function(){
   updateDisplay(stageMonster.name+" killed "+player.name);
 }
 
+// MONSTER ATTACK
+
 var monsterTurn = function() {
   //
   // if monster health is below 3 defend
   // if monster health is below 50% of max hp use special
-  var halfMonsterHP = stageMonster.maxhp / 2;
-  var halfMonsterHPRounded = Math.round(halfMonsterHP);
-  if (stageMonster.hp < halfMonsterHPRounded) {
-    if (monster.sp <= 5) {
+  // var randomNumber = Math.floor((Math.random() * 2) + 1);
+  // if (randomNumber = 1) {
+
+    var halfMonsterHP = stageMonster.maxhp / 2;
+    var halfMonsterHPRounded = Math.round(halfMonsterHP);
+    if (stageMonster.hp < halfMonsterHPRounded) {
+      if (stageMonster.sp >= 5) {
       // has at least 5. all specials are 5.
       // use special atack.
       monsterTurn.special();
     } else {
       // monster is below half hp but has no sp
-       monsterTurn.attack();
+      monsterTurn.attack();
     }
   } else {
     // monster is above half hp so just attacks
     monsterTurn.attack();
   }
+
+// } else {
+//   monsterTurn.attack();
+// }
 }
 
+// MONSTER SPECIAL ATTACK
+
 monsterTurn.special = function() {
- 
-alert("hello");
+
+  // CHANGE SPRITE TO SPECIAL
+  changeSprite("#monster1", stageMonster.type+" special");
+
+  // CHECK WHAT MONSTER IT IS
+  switch(stageMonster) {
+    case monsterRat:
+    //  special
+    updateDisplay(stageMonster.name+" faded! +1 DEF");
+    // minus monster sp
+    stageMonster.def +=1;
+    stageMonster.sp -=5;
+    updateMonsterStats();
+
+    break;
+    case monsterGhost:
+    //  special
+    updateDisplay(stageMonster.name+" drained 5 hp!");
+    // steal hp from player
+    player.hp -= 5;
+    stageMonster.hp += 5;
+    // minus monster sp
+    stageMonster.sp -=5;
+    updateMonsterStats();
+    
+    break;
+    case monsterSkeleton:
+    //  special
+    updateDisplay(stageMonster.name+" summoned doom blade!");
+    changeSprite("#effect", "effectDeathBlade");
+    $("#effect").animate({top: '-120px'},1);
+    $("#effect").animate({top: '+=210px'},500);
+    // take off sp
+    // minus monster sp
+    var hpToSteal = 5;
+    player.hp -= hpToSteal;
+    monster.hp += hpToSteal;
+
+    stageMonster.sp -=5;
+    updateMonsterStats();
+    
+    break;
+    case monsterBlob:
+    //  special
+    updateDisplay(stageMonster.name+" ate some sp!");
+    // steal sp
+    var spToSteal = 5;
+    player.sp -= spToSteal;
+    monster.sp += spToSteal;
+    // minus monster sp
+    stageMonster.sp -=5;
+    updateMonsterStats();
+    
+    break;
+    case monsterPrincess:
+    //  special
+    var randomNumber = Math.floor((Math.random() * 2) + 1);
+    if (randomNumber == 1) {
+      updateDisplay(stageMonster.name+" cast lightning! -3HP -3SP");
+    // minus monster sp
+    changeSprite("#effect", "effectLightning");
+    // take off sp
+    // minus monster sp
+    player.sp -= 5;
+    player.hp -= 5;
+    stageMonster.sp -=5;
+    
+
+  } else {
+    updateDisplay(stageMonster.name+" cast meteor! -6HP");
+      // minus monster sp
+      changeSprite("#effect", "effectMeteor");
+      $("#effect").animate({top: '-120px'},1);
+      $("#effect").animate({top: '+=210px'},500);
+      // take off sp
+      // minus monster sp
+      player.hp -= 10;
+      stageMonster.sp -=5;
+
+
+    }
+    updateMonsterStats();
+    break;
+    default:
+    //  special
+  }
+
+
+  // BACK TO NORMAL
+  
+  setTimeout(function(){
+    changeSprite("#monster1", stageMonster.type+"");
+    changeSprite("#effect", "default");
+    updatePlayerStats();
+    updateMonsterStats();
+  }, 1700)
+
+
+
+// CHECK IF PLAYER DEAD
+if (player.hp > 0) {
+
+  showThis(spritePlayer1Menu);
+
+} else if (player.hp <= 0) {
+  setTimeout(playerDead, 1000)
+}
 
 };
 
 monsterTurn.attack = function() {
-  
+
   // UPDATE DISPLAY WITH MONSTER ATTACKS
-  updateDisplay(monster.name+" attacks!");
+  updateDisplay(stageMonster.name+" attacks!");
 
   // CHANGE MONSTER SPRITE TO ATTACK CSS
   changeSprite("#monster1", stageMonster.type+" attack");
 
   // ANIMATE MONSTER ATTACK TOWARDS PLAYER
   $("#monster1").animate({right: '+=150px'}, function(){
-    
+
     // PLAY MONSTER ATTACK SOUND
     playSound('sound'+stageMonster.type+'Attack');
 
@@ -605,14 +819,6 @@ playerAttack = function() {
     });
   });
 
-  // CALCULATE MONSTER HP AFTER ATTACK
-  var damageGiven = player.atk - stageMonster.def;
-  var oldHP = stageMonster.hp;
-  var newHP = oldHP - damageGiven;
-  stageMonster.hp = newHP;
-
-  // DISPLAY DAMAGE GIVEN
-  updateDisplay(stageMonster.name+" took "+damageGiven+" damage!");
 }
 
 playerAttack.useHolySword = function() {
@@ -626,7 +832,7 @@ playerAttack.useHolySword = function() {
 
   // ANIMATE PLAYER ATTACK TO MONSTER
   $("#player1").animate({left: '+=150px'}, function(){
-    
+
     // PLAY PLAYER ATTACK SOUND
     playSound('soundPlayerAttack');
 
@@ -657,13 +863,14 @@ playerAttack.useHolySword = function() {
   });
 
   // CALCULATE MONSTER HP AFTER ATTACK
-  var damageGiven = player.atk - stageMonster.def;
-  var oldHP = stageMonster.hp;
-  var newHP = oldHP - damageGiven;
-  stageMonster.hp = newHP;
+  if (stageMonster.type == "Skeleton") {
+    stageMonster.hp -= 8;
+    updateDisplay(stageMonster.name+" took 8 holy damage!!!");
+  } else {
+    stageMonster.hp -= 4;
+    updateDisplay(stageMonster.name+" took 4 damage!");
+  }
 
-  // DISPLAY DAMAGE GIVEN
-  updateDisplay(stageMonster.name+" took "+damageGiven+" damage!");
 }
 
 
@@ -690,6 +897,16 @@ btn.playerAtk.on("click", function(){
   // PLAYER ATTACK ANIMATION
   playerAttack();
 
+
+  // CALCULATE MONSTER HP AFTER ATTACK
+  var damageGiven = player.atk - stageMonster.def;
+  var oldHP = stageMonster.hp;
+  var newHP = stageMonster.hp - damageGiven;
+  stageMonster.hp = newHP;
+
+  // DISPLAY DAMAGE GIVEN
+  updateDisplay(stageMonster.name+" took "+damageGiven+" damage!");
+
   // Monster dead?
   if (stageMonster.hp > 0) {
     // No.
@@ -699,7 +916,7 @@ btn.playerAtk.on("click", function(){
 
     currentBattle.round++;
 
-  } else if (stageMonster.hp <= 0) {
+  } else if (stageMonster.hp < 1) {
     // Yes.
     // v2 / Add loot?
     // v3 / Level select?
@@ -731,9 +948,9 @@ btn.playerDef.on('mouseout', function(){
 btn.playerDef.on("click", function(){
 
   hideMenus();
-  if (player.sp < 5) {
-
-    updateDisplay2("You don't have enough SP!");
+  if (player.sp < 2) {
+    
+    updateDisplay("You don't have enough SP!");
 
   } else {
   // hide player buttons during attack
@@ -745,13 +962,13 @@ btn.playerDef.on("click", function(){
   // CHANGE PLAYER SPRITE TO DEFEND CSS
   changeSprite("#player1", "defend");
   // changeSprite("#effect", "effectHolySword");
- 
+
     // PLAY PLAYER ATTACK SOUND
     playSound('soundPlayerDefend');
 
       // // CHANGE PLAYER SPRITE TO DEFAULT AFTER SET TIME
       setTimeout(function(){
-        
+
       }, 1000)
 
   // ADD 3 TO PLAYER HP. REMOVE 3 SP.
@@ -771,21 +988,18 @@ btn.playerDef.on("click", function(){
   if (stageMonster.hp > 0) {
     // No.
     setTimeout(function(){
-
       monsterTurn.attack();
     }, 2000);
 
-    
-
     setTimeout(function(){
 
-    changeSprite("#player1", "default");
-    changeSprite("#effect", "default");
+      changeSprite("#player1", "default");
+      changeSprite("#effect", "default");
     }, 3000);
 
     currentBattle.round++;
 
-  } else if (stageMonster.hp <= 0) {
+  } else if (stageMonster.hp < 1) {
     // Yes.
     // v2 / Add loot?
     // v3 / Level select?
@@ -797,6 +1011,8 @@ btn.playerDef.on("click", function(){
 
     stageSetup.stageOver();
   }
+
+
 });
 
 // PLAYER BUTTON = SPECIAL
@@ -819,10 +1035,10 @@ btn.playerSpc.on("click", function(){
   playerSpcOpen = true;
   playerInvOpen = false;
   // SHOW SPECIAL MENU
-  } else if (playerSpcOpen == true) {
-    hideThis(spritePlayer1MenuSpc);
-    playerSpcOpen = false;
-  }
+} else if (playerSpcOpen == true) {
+  hideThis(spritePlayer1MenuSpc);
+  playerSpcOpen = false;
+}
 
 });
 
@@ -846,10 +1062,10 @@ btn.playerInv.on("click", function(){
   playerInvOpen = true;
   playerSpcOpen = false
   // SHOW SPECIAL MENU
-  } else if (playerInvOpen == true) {
-    hideThis(spritePlayer1MenuInv);
-    playerInvOpen = false;
-  }
+} else if (playerInvOpen == true) {
+  hideThis(spritePlayer1MenuInv);
+  playerInvOpen = false;
+}
 
 });
 
@@ -961,7 +1177,7 @@ btn.doubleStrike.on('mouseout', function(){
 btn.doubleStrike.on("click", function(){
   hideMenus();
   if (player.sp < 5) {
-    updateDisplay2("You don't have enough SP!");
+    updateDisplay("You don't have enough SP!");
   } else {
     // hide player menus during attack
     
@@ -973,10 +1189,22 @@ btn.doubleStrike.on("click", function(){
     playerAttack();
     setTimeout(playerAttack, 1000);
 
+
+    // CALCULATE MONSTER HP AFTER ATTACK
+    var damageGiven = player.atk - stageMonster.def;
+    var totaldamage = damageGiven * 2;
+    var oldHP = stageMonster.hp;
+    var newHP = stageMonster.hp - totaldamage;
+
+    stageMonster.hp = newHP;
+
+    // DISPLAY DAMAGE GIVEN
+    updateDisplay(stageMonster.name+" took "+totaldamage+" damage!");
+
     // REMOVE SP + UPDATE DISPLAY
     player.sp-=5;
     updatePlayerStats();
-  }
+  };
   // Monster dead?
   if (stageMonster.hp > 0) {
     // No.
@@ -986,13 +1214,13 @@ btn.doubleStrike.on("click", function(){
 
     currentBattle.round++;
 
-  } else if (stageMonster.hp <= 0) {
+  } else if (stageMonster.hp < 1) {
 
     // reset battle round to 0 for;
     
     //monster dead show animation
     setTimeout(monsterDead, 1000)
-    stageSetup.stageOver();
+    stageSetup.nextStage();
   }
 });
 
@@ -1006,7 +1234,7 @@ btn.holySword.on('mouseout', function(){
 });
 btn.holySword.on("click", function(){
   if (player.sp < 3) {
-    updateDisplay2("You don't have enough SP!");
+    updateDisplay("You don't have enough SP!");
   } else {
   // HIDE BUTTONS
   hideMenus();
@@ -1019,7 +1247,7 @@ btn.holySword.on("click", function(){
   // REMOVE SP + UPDATE DISPLAY
   player.sp-=3;
   updatePlayerStats();
-  }
+}
   // Monster dead?
   if (stageMonster.hp > 0) {
     // No.
@@ -1029,7 +1257,7 @@ btn.holySword.on("click", function(){
 
     currentBattle.round++;
 
-  } else if (stageMonster.hp <= 0) {
+  } else if (stageMonster.hp < 1) {
     // Yes.
     // v2 / Add loot?
     // v3 / Level select?
@@ -1039,7 +1267,7 @@ btn.holySword.on("click", function(){
     //monster dead show animation
     setTimeout(monsterDead, 1000)
 
-    stageSetup.stageOver();
+    stageSetup.nextStage();
   }
 });
 
@@ -1064,12 +1292,8 @@ var stopSound = function(soundToStop){
   }
 }
 
-
-// GAME SETUP
-
-function gameSetup() {
-  stageSetup(1);
-  playerSetup();
+function gameIntro() {
+  stageSetup(0);
   showThis(spriteStage);
   // startBattle();
 }
@@ -1077,30 +1301,53 @@ function gameSetup() {
 
 // setup sound - run game after all sound files are loaded
 soundManager.setup({ url: '/swf/', flashVersion: 9, onready: function() {
-  
+
   // SM2 has loaded, API ready to use e.g., createSound() etc.
+
+    soundManager.createSound({id:'stage0', url:'./sound/music-ericskiff/0-intro.mp3'
+  })
   soundManager.createSound({id:'stage1', url:'./sound/music-ericskiff/1.mp3'
-  })
+})
   soundManager.createSound({id:'stage2', url:'./sound/music-ericskiff/2-DigitalNative.mp3'
+})
+
+  soundManager.createSound({id:'stage3', url:'./sound/music-ericskiff/8-Ascending.mp3'
+})
+
+  soundManager.createSound({id:'stage4', url:'./sound/music-ericskiff/4-Searching.mp3'
+})
+
+    soundManager.createSound({id:'stage5', url:'./sound/music-ericskiff/7-Credits.mp3'
   })
+
+    soundManager.createSound({id:'stage5', url:'./sound/music-ericskiff/2-DigitalNative.mp3'
+  })
+
   soundManager.createSound({id:'gameover', url:'./sound/music-ericskiff/0-Prologue.mp3'
-  })
+})
 
   soundManager.createSound({id:'soundPlayerAttack', url:'./sound/nes-samples/nes-05-05.wav'
-  })
+})
 
   soundManager.createSound({id:'soundGhostAttack', url:'./sound/nes-samples/nes-15-07.wav'
-  })
+})
 
   soundManager.createSound({id:'soundRatAttack', url:'./sound/nes-samples/nes-14-14.wav'
-  })
+})
 
   soundManager.createSound({id:'soundPlayerDead', url:'./sound/nes-samples/nes-15-01.wav'
-  })
-  // function to ready sprites for smooth anim?
+})
 
+    soundManager.createSound({id:'soundPlayerDrink', url:'./sound/drink.wav'
+  })
+
+      soundManager.createSound({id:'soundPlayerDefend', url:'./sound/defend.wav'
+    })
+  // function to ready sprites for smooth anim?
+  
   // sounds loaded run game
   gameSetup();
+  // gameIntro();
 }
 })
 

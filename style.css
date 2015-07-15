@@ -42,13 +42,13 @@ overflow: hidden;
 
 /*GAME DISPLAY*/
 #display {font-family: 'uni_05_53regular' !important;
-  position:absolute;top:25px;right:5px;left:5px; border:0 solid black; padding:5px 10px 10px 15px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
+  position:absolute;top:5px;right:5px;left:5px; border:0 solid black; padding:5px 10px 10px 15px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
 }
 
 #display span {color:grey;}
 
 #display2 {font-family: 'uni_05_53regular' !important;
-  position:absolute;top:25px;right:5px;left:5px; border:0 solid black; padding:5px 10px 10px 15px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
+  position:absolute;top:5px;right:5px;left:5px; border:0 solid black; padding:5px 10px 10px 15px; background:black; font-size: 20px; color: white; font-weight: bold; letter-spacing: 2px;
 z-index:100;}
 
 #display2 span {color:grey;}
@@ -83,8 +83,8 @@ z-index:100;}
 .player1-stats .player1-def {float:left}
 .player1-stats .player1-sp {display:inline-block;font-size:16px;}
 
-#player1-inv {position:absolute;bottom:10px;right:10px}
-#player1-inv button {background-size:cover !important; height:55px; width:55px;margin-left:10px;}
+#player1-inv {position:absolute;bottom:5px;right:5px}
+#player1-inv button {background-size:cover !important; height:55px; width:55px;margin-left:5px;}
 #player1-inv .redPotion {background:url("./img/item-redPotion.gif")}
 #player1-inv .greenPotion {background:url("./img/item-greenPotion.gif")}
 
@@ -105,8 +105,22 @@ z-index:100;}
 #monster1 {position:absolute;top:60px;right:0; width:300px; height:350px; display:inline-block; background-size:cover !important;}
 #monster1.dead {background:url("./img/monster-dead.gif");}
 #monster1.Rat {background:url("./img/monster-rat.gif");}
+#monster1.Rat.special {background:url("./img/monster-rat-special.gif");}
+#monster1.Rat.attack {background:url("./img/monster-rat-attack.gif");}
 #monster1.Ghost {background:url("./img/monster-ghost.gif");}
+#monster1.Ghost.special {background:url("./img/monster-ghost-special.gif");}
 #monster1.Ghost.attack {background:url("./img/monster-ghost-attack.gif");}
+#monster1.Skeleton {background:url("./img/monster-skeleton.gif");}
+#monster1.Skeleton.special {background:url("./img/monster-skeleton-special.gif");}
+#monster1.Skeleton.attack {background:url("./img/monster-skeleton-attack.gif");}
+#monster1.Blob {background:url("./img/monster-blob.gif");}
+#monster1.Blob.special {background:url("./img/monster-blob-special.gif");}
+#monster1.Blob.attack {background:url("./img/monster-blob-attack.gif");}
+#monster1.Princess {background:url("./img/monster-princess.gif");}
+#monster1.Princess.special {background:url("./img/monster-princess-special.gif");}
+#monster1.Princess.attack {background:url("./img/monster-princess-attack.gif");}
+
+
 
 
 .monster1-stats {position:absolute;bottom:65px;right:10px; font-size:10px; font-family: 'uni_05_53regular'; font-weight: normal; color:white; width: auto; margin-top:0; margin-bottom:0;}
@@ -114,8 +128,9 @@ z-index:100;}
 .monster1-stats .monster1-name {float:right;}
 .monster1-stats .monster1-lvl {float:right;}
 .monster1-hp {font-size:22px; margin-bottom: -2px;display:block;}
-.monster1-stats .monster1-atk {float:right;}
-.monster1-stats .monster1-def {float:right;}
+.monster1-stats .monster1-atk {float:right; display:hidden !important;}
+.monster1-stats .monster1-def {float:right; display:hidden !important;}
+.monster1-stats .monster1-sp {float:right; display:hidden !important;}
 
 .monster1-inventory {}
 
@@ -125,6 +140,9 @@ z-index:100;}
 #effect {position:absolute;top:60px;left:0; width:500px; height:350px; background-size:cover !important; z-index: 500;}
 #effect.default {background:none;}
 #effect.effectHolySword {background:url("./img/effect-holysword.gif");}
+#effect.effectLightning {background:url("./img/effect-lightning.gif");}
+#effect.effectMeteor {background:url("./img/effect-meteor.gif");}
+#effect.effectDeathBlade {background:url("./img/effect-deathblade.gif");}
 
 
 
@@ -138,3 +156,6 @@ z-index:100;}
 .stage0 {background: url("./img/stages/stagebg-0.gif");}
 .stage1 {background: url("./img/stages/stagebg-1.gif");}
 .stage2 {background: url("./img/stages/stagebg-2.gif");;}
+.stage3 {background: url("./img/stages/stagebg-3.gif");;}
+.stage4 {background: url("./img/stages/stagebg-4.gif");;}
+.stage5 {background: url("./img/stages/stagebg-5.gif");;}
